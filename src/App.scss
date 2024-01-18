@@ -1,0 +1,40 @@
+* {
+    margin: 0;
+    padding: 0;
+    color: #999990;
+    font-family: 'Montserrat', sans-serif;
+}
+
+body{
+    padding: 2em 5em;
+    background-color: #fefdf5;
+}
+
+/* NavigationComponent */
+nav{
+    display: flex;
+    flex-direction: column;
+    column-gap: 65px;
+}
+
+.nav_top{
+    display: flex;
+    justify-content: space-between;
+    img{
+        width: 2em;
+        height: 2em;
+    }
+    .nav_right{
+        display: flex;
+        column-gap: 2em;
+
+        .nav_search_cont{
+            display: flex;
+            align-items: center;
+        }
+        .nav_logo_cont{
+            display: flex;
+            column-gap: 1em;
+        }
+    }
+}
