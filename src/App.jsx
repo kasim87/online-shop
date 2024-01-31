@@ -1,17 +1,38 @@
 import './App.scss'
-import { useGetProductsQuery } from './store/api'
+import { useGetCategoriesQuery, useGetProductsQuery } from './store/api'
 import { NavigationComponent } from './components/NavigationComponent'
+import { ErrorComponent } from './components/ErrorComponent'
+import { LoadingComponent }  from './components/LoadingComponent'
+import { MainContentComponent } from './components/MainContentComponent'
+import { Route, Routes } from 'react-router-dom'
+import { CartComponent } from './components/CartComponent'
+import { FavoriteComponent } from './components/FavoriteComponent'
 
 function App() {
-  const {data, error, isLoading} = useGetProductsQuery
-
+  const { data, isLoading, error } = useGetCategoriesQuery()
   return (
-    <>
-      {/* <NavigationComponent></NavigationComponent> */}
-      {/* {data.map((product) => {
-          return <h1>{product.rating.rate}</h1>
-      })} */}
-    </>
+    <div className='App'>
+      <NavigationComponent></NavigationComponent>
+
+      {isLoading ? (<LoadingComponent></LoadingComponent>) : error ? (<ErrorComponent></ErrorComponent>) : 
+        (<Routes>
+        <Route path='/cart' element={<CartComponent></CartComponent>}></Route>
+          <Route path='/favorite' element={<FavoriteComponent></FavoriteComponent>}></Route>
+  
+          <Route path='/' element={<MainContentComponent them='popular'></MainContentComponent>}
+          ></Route>
+          
+          {data.map((category) => {
+                  return (
+                    <Route 
+                    key={category}
+                    path={`/${category}`} 
+                    element={<MainContentComponent them={category}></MainContentComponent>}></Route>
+                  )
+              })}
+        </Routes>
+      )}
+    </div>
   )
 }
 
